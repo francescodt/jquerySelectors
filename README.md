@@ -17,7 +17,7 @@ Actual time needed to complete: 1.5 hours. (HA)
 
 Number and name of feature: 2 - Filter for images
 
-Estimate of time needed to complete: 1.5 hours
+Estimate of time needed to complete: 1 hour
 
 Start time: _____
 
