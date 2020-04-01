@@ -8,11 +8,11 @@ Number and name of feature: 1 - Display images, using aJax
 
 Estimate of time needed to complete: 1.5 hours
 
-Start time: 
+Start time: 9:30 am
 
-Finish time: _____
+Finish time: 11:00 am
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1.5 hours. (HA)
 
 
 Number and name of feature: 2 - Filter for images
