@@ -68,6 +68,20 @@ $('.dropdown').on('change', function() {
 
 
 
+$('#pageOne').on('click', function() {
+    $.ajax('./data/page-1.json', ajaxSettings).then(function (data) {
+        images = data;
+        renderImages('default');
+        images.forEach(image => makeMyMenu(image)); });
+        
+});
 
+$('#pageTwo').on('click', function() {
+    $.ajax('./data/page-2.json', ajaxSettings).then(function (data) {
+        images = data;
+        renderImages('default');
+        images.forEach(image => makeMyMenu(image)); });
+        
+});
 
 
