@@ -19,11 +19,11 @@ Number and name of feature: 2 - Filter for images
 
 Estimate of time needed to complete: 1 hour
 
-Start time: _____
+Start time: 11:00 am
 
-Finish time: _____
+Finish time: did not complete.
 
-Actual time needed to complete: _____
+Actual time needed to complete: infinity hours.
 
 
 Number and name of feature: 3 - Style the UI

@@ -1,53 +1,71 @@
 'use strict';
 
-const array = [];
+//courtesy of chase, yvette, keith and in class efforts
 
-function Animal(animal) {
-    this.image_url = animal.image_url;
-    this.title = animal.title;
-    this.description = animal.description;
-    this.keyword = animal.keyword;
-    this.horns = animal.horns;
-    array.push(this.keyword);
+const filter = [];
+
+function Image(image) {
+    this.image_url = image.image_url;
+    this.title = image.title;
+    this.description = image.description;
+    this.keyword = image.keyword;
+    this.horns = image.horns;
+    filter.push(this);
 
 }
 
-Animal.prototype.render = function (container) {
+Image.prototype.render = function (container) {
     let $container = $(container);
-    let $template = $container.find('.photo-template');
-
-    let $animal = $template.clone();
-    $animal.removeClass('photo-template')
-    $animal.find('.animal-name').text(this.name);
-    $animal.find('img.animal-image').attr('src', this.image_url);
-    $animal.find('.animal-description').text(this.description);
-    $animal.find('.animal-horns').text(this.horns);
-    $container.append($animal);
-
+    let $template = $('#photo-template');
+    let $image = $template.clone();
+    $image.removeAttr('id');
+    $image.find('h2.image-name').text(this.title);
+    $image.find('img.image-display').attr('src', this.image_url);
+    $image.find('p').text(this.description);
+    $container.append($image);
 }
+
+const keywords = [];
+function makeMyMenu(image) {
+    let $menu = $('.dropdown');
+    let $createOptions = $("<option>");
+    $createOptions.text(image.keyword);
+    $createOptions.val(image.keyword);
+    if (!keywords.includes(image.keyword)) {
+        keywords.push(image.keyword);
+        $menu.append($createOptions);
+    }
+};
+
 
 const ajaxSettings = {
     method: 'get',
     dataType: 'json'
 };
 
-//Create a <select> element which contains unique <option> elements extracted dynamically from the JSON file, one for each keyword.
-//Use an event handler to respond when the user chooses an option from the select menu. Hide all of the images, then show those whose keyword matches the option chosen.
+let images = null;
 
-console.log('aJax', ajaxSettings);
+$.ajax('./data/page-1.json', ajaxSettings).then(function (data) {
+    images = data;
+    renderImages('default');
+    images.forEach(image => makeMyMenu(image));
+});
 
-$.ajax('data/page-1.json', ajaxSettings)
-    .then(function (data) {
-        console.log(data);
-
-        data.forEach(animal => {
-            let actualAnimal = new Animal(animal);
-            actualAnimal.render('main');
-        })
-
-        for (let i = 0; i < array.length; i++) {
-            $('.dropdown').append(
-                $('<option>').text(array[i]).val(i));
+function renderImages(filter) {
+    $('main').empty();
+    images.forEach((image) => {
+        let displayImage = new Image(image);
+        if (displayImage.keyword === filter) {
+            displayImage.render('main');
+        } else if (filter === 'default') {
+            displayImage.render('main');
         }
-
     });
+}
+
+
+$('.dropdown').on('change', function() {
+    let $this = $(this),
+        filterValue = $this.val();
+    renderImages(filterValue);
+})
