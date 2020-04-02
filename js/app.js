@@ -13,16 +13,11 @@ function Image(image) {
     filter.push(this);
 
 }
-
-Image.prototype.render = function (container) {
-    let $container = $(container);
-    let $template = $('#photo-template');
-    let $image = $template.clone();
-    $image.removeAttr('id');
-    $image.find('h2.image-name').text(this.title);
-    $image.find('img.image-display').attr('src', this.image_url);
-    $image.find('p').text(this.description);
-    $container.append($image);
+let arr=[];
+Image.prototype.render = function () {
+     let container = $(`<div></div>`).clone();
+        container.append(`<h2>${this.title}</h2><p>${this.description}</p><img src="${this.image_url}"/><p>${this.horns}</p>`);
+        return container;
 }
 
 const keywords = [];
@@ -56,9 +51,9 @@ function renderImages(filter) {
     images.forEach((image) => {
         let displayImage = new Image(image);
         if (displayImage.keyword === filter) {
-            displayImage.render('main');
+            $('main').append(displayImage.render());
         } else if (filter === 'default') {
-            displayImage.render('main');
+            $('main').append(displayImage.render());
         }
     });
 }
@@ -69,3 +64,24 @@ $('.dropdown').on('change', function() {
         filterValue = $this.val();
     renderImages(filterValue);
 })
+
+
+
+
+$('#pageOne').on('click', function() {
+    $.ajax('./data/page-1.json', ajaxSettings).then(function (data) {
+        images = data;
+        renderImages('default');
+        images.forEach(image => makeMyMenu(image)); });
+        
+});
+
+$('#pageTwo').on('click', function() {
+    $.ajax('./data/page-2.json', ajaxSettings).then(function (data) {
+        images = data;
+        renderImages('default');
+        images.forEach(image => makeMyMenu(image)); });
+        
+});
+
+
