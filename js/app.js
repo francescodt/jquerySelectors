@@ -13,7 +13,7 @@ function Image(image) {
     filter.push(this);
 
 }
-let arr=[];
+
 Image.prototype.render = function () {
      let container = $(`<div></div>`).clone();
         container.append(`<h2>${this.title}</h2><p>${this.description}</p><img src="${this.image_url}"/><p>${this.horns}</p>`);
